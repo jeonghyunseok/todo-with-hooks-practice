@@ -1,9 +1,8 @@
-import React, {useRef} from 'react';
+import React from 'react';
 import TodoListItem from './TodoListItem';
 import StyledTodoList from './StyledTodoList';
-import {Input, Button, Icon} from 'antd';
+import {Button} from 'antd';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 
 function TodoList(props) {
   const {
@@ -14,14 +13,7 @@ function TodoList(props) {
     onUnselectAll,
     onSelectAll,
   } = props;
-  const inputRef = useRef();
 
-  const handleEnterTodoText = e => {
-    this.props.onCreate(e.target.value);
-    inputRef.current.setState({
-      value: '',
-    });
-  };
   const handleChangeComplteItem = (item, index, value) => {
     item.completed = value;
     onChangeComplete(index, item);
@@ -31,14 +23,6 @@ function TodoList(props) {
 
   return (
     <StyledTodoList className="TodoList">
-      <div>
-        <Input
-          ref={inputRef}
-          onPressEnter={handleEnterTodoText}
-          addonAfter={<Icon type="plus" />}
-        />
-      </div>
-
       <div>
         {items.map((item, index) => {
           return (

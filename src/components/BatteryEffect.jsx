@@ -5,28 +5,34 @@ export default function BatteryEffect() {
   const [level, setLevel] = useState(0);
   const [charging, setCharging] = useState(false);
 
+  const [count, setCount] = useState(100);
   useEffect(() => {
     let battery;
     navigator.getBattery().then(bat => {
       battery = bat;
       battery.addEventListener('levelchange', handleChange);
-      // battery.addEventListener('chargingchange', handleChange);
+      battery.addEventListener('chargingchange', handleChange);
       handleChange({target: battery});
     });
 
     return () => {
       battery.removeEventListener('levelchange', handleChange);
-      //  battery.removeEventListener('chargingchange', handleChange);
+      battery.removeEventListener('chargingchange', handleChange);
     };
-  }, [level, charging]);
+  }, [level, count]);
 
   const handleChange = ({target: {level, charging}}) => {
     setLevel(level);
     setCharging(charging);
   };
 
+  const handleClick = e => {
+    setCount(count - 1);
+  };
+
   return (
-    <section>
+    <section onClick={handleClick}>
+      {count}
       <Battery level={level} charging={charging} />
     </section>
   );
