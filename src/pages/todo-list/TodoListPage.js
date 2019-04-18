@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 import styled from 'styled-components';
 import TodoList from './components/TodoList';
 
@@ -13,7 +13,7 @@ function TodoListPage(props) {
   const todo = localStorage.getItem('todos');
   const [items, setItems] = useState(JSON.parse(todo));
 
-  this.headerRef = React.createRef();
+  const headerRef = useRef();
 
   // componentWillUnmount() {
   //   localStorage.setItem('todos', JSON.stringify(this.state.items));
