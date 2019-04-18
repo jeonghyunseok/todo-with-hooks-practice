@@ -64,14 +64,16 @@ function TodoListPage(props) {
   };
 
   const handleAddItem = text => {
-    this.setState(prevState => {
-      const items = [...prevState.items, {name: text, completed: false}];
+    // this.setState(prevState => {
+    //   const items = [...prevState.items, {name: text, completed: false}];
 
-      localStorage.setItem('todos', JSON.stringify(items));
-      return {
-        items,
-      };
-    });
+    //   localStorage.setItem('todos', JSON.stringify(items));
+    //   return {
+    //     items,
+    //   };
+    // });
+    const newItems = [...items, {name: text, completed: false}];
+    setItems(newItems);
   };
 
   return (

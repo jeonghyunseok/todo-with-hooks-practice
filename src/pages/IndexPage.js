@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import {Link} from 'react-router-dom';
 import {AuthContext} from '../contexts';
-
+import BatteryEffect from '../components/BatteryEffect';
 const Page = styled.div`
   text-align: center;
   display: flex;
@@ -15,6 +15,7 @@ const IndexPage = ({auth}) => {
   return (
     <Page>
       <div>
+        <BatteryEffect />
         <h1>Welcome to React Basic</h1>
         <AuthContext.Consumer>
           {auth =>
