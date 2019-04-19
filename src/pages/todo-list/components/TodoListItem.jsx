@@ -45,5 +45,4 @@ function TodoListItem(props) {
     </div>
   );
 }
-
 export default TodoListItem;

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import TodoList from './components/TodoList';
 import CreateTodo from './components/CreacteTodo';
 import TodoListFooter from './components/TodoListFooter';
-
+import {useLocalStorage} from '../../hooks';
 const Page = styled.div`
   min-height: 80vh;
   padding: 50px;
@@ -18,23 +18,11 @@ const Page = styled.div`
 
 function TodoListPage(props) {
   const todoId = useRef(0);
-
-  const initialState = () => {
-    const todo = JSON.parse(localStorage.getItem('todos') || '[])');
-    console.log('--->', todo);
-
-    todoId.current = todo.reduce((sum, value) => {
+  const [items, setItems] = useLocalStorage('todos', [], values => {
+    todoId.current = values.reduce((sum, value) => {
       return Math.max(sum, value.id) + 1;
     }, 0);
-
-    return todo;
-  };
-
-  const [items, setItems] = useState(initialState);
-
-  useEffect(() => {
-    localStorage.setItem('todos', JSON.stringify(items));
-  }, [items]);
+  });
 
   const handleSelectAll = () => {
     const {items} = this.state;
@@ -65,7 +53,6 @@ function TodoListPage(props) {
   };
 
   const handleEditItem = (index, value) => {
-    const {items} = this.state;
     items[index].name = value;
 
     //   localStorage.setItem('todos', JSON.stringify(items));
@@ -73,14 +60,12 @@ function TodoListPage(props) {
   };
 
   const handleDeleteItem = index => {
-    const {items} = this.state;
     items.splice(index, 1);
 
     //   localStorage.setItem('todos', JSON.stringify(items));
     setItems([...items]);
   };
 
-  console.log(todoId);
   const handleAddItem = text => {
     todoId.current += 1;
     const newItems = [
