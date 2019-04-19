@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import {Link} from 'react-router-dom';
 import {AuthContext} from '../contexts';
 import BatteryEffect from '../components/BatteryEffect';
+import TextInputWithFocusButton from '../components/TextInputWithFocusButton';
 const Page = styled.div`
   text-align: center;
   display: flex;
@@ -15,7 +16,8 @@ const IndexPage = ({auth}) => {
   return (
     <Page>
       <div>
-        <BatteryEffect />
+        {/* <BatteryEffect /> */}
+        <TextInputWithFocusButton />
         <h1>Welcome to React Basic</h1>
         <AuthContext.Consumer>
           {auth =>

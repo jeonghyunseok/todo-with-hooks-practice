@@ -10,6 +10,9 @@ export default function CreateTodo(props) {
   const [count, setCount] = useState(MAX_LEN);
 
   const handleEnterTodoText = e => {
+    if (e.target.value === '') {
+      return;
+    }
     onCreate(e.target.value);
     inputRef.current.setState({
       value: '',
@@ -17,10 +20,14 @@ export default function CreateTodo(props) {
   };
 
   const handleKeyDown = e => {
-    console.log(e.key, e.target.value);
+    // console.log(e.key, e.target.value);
+
     const text = e.target.value;
     if (e.key !== 'Backspace' && text.length >= 20) {
       e.preventDefault();
+      inputRef.current.setState({
+        value: text.substr(0, 18),
+      });
     }
 
     setCount(MAX_LEN - text.length - 1);
@@ -32,6 +39,7 @@ export default function CreateTodo(props) {
   return (
     <div className="CreateTodo">
       <Input
+        length={20}
         ref={inputRef}
         onKeyDown={handleKeyDown}
         onKeyUp={handleKeyUp}

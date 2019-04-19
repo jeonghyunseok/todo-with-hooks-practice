@@ -17,9 +17,17 @@ const Page = styled.div`
 `;
 
 function TodoListPage(props) {
+  const todoId = useRef(0);
+
   const initialState = () => {
-    const todo = localStorage.getItem('todos') || '[]';
-    return JSON.parse(todo);
+    const todo = JSON.parse(localStorage.getItem('todos') || '[])');
+    console.log('--->', todo);
+
+    todoId.current = todo.reduce((sum, value) => {
+      return Math.max(sum, value.id) + 1;
+    }, 0);
+
+    return todo;
   };
 
   const [items, setItems] = useState(initialState);
@@ -72,8 +80,17 @@ function TodoListPage(props) {
     setItems([...items]);
   };
 
+  console.log(todoId);
   const handleAddItem = text => {
-    const newItems = [...items, {name: text, completed: false}];
+    todoId.current += 1;
+    const newItems = [
+      ...items,
+      {
+        id: todoId.current,
+        name: text,
+        completed: false,
+      },
+    ];
     setItems(newItems);
     //   localStorage.setItem('todos', JSON.stringify(newItems));
   };
