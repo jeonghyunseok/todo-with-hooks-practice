@@ -15,7 +15,7 @@ import BlogHomePage from './pages/blog/BlogHomePage';
 import BlogDetailPage from './pages/blog/BlogDetailPage';
 import BlogPostPage from './pages/blog/BlogPostPage';
 import GuestHomePage from './pages/guest/GuestHomePage';
-
+import {Blog, BlogProvider} from './contexts/BlogContext';
 const PrivateRoute = ({component: Component, ...rest}) => {
   const {isAuthenticated} = useContext(AuthContext);
   return (
@@ -42,11 +42,13 @@ const AppRouter = props => (
     <div className="AppRouter">
       <Navigation {...props} />
       <Route path="/" exact component={IndexPage} />
-      <Route path="/blog" exact component={BlogHomePage} />
-      <Switch>
-        <PrivateRoute path="/blog/new-post" exact component={BlogPostPage} />
-        <Route path="/blog/:title" exact component={BlogDetailPage} />
-      </Switch>
+      <BlogProvider>
+        <Route path="/blog" exact component={BlogHomePage} />
+        <Switch>
+          <PrivateRoute path="/blog/new-post" exact component={BlogPostPage} />
+          <Route path="/blog/:title" exact component={BlogDetailPage} />
+        </Switch>
+      </BlogProvider>
       <Route path="/login/" component={AboutPage} />
       <Route path="/guest/" component={GuestHomePage} />
       <PrivateRoute path="/todo-list/" component={TodoListPage} />

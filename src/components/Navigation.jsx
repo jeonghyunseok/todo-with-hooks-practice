@@ -28,6 +28,7 @@ function Navigation({auth}) {
       <NavLink exact to="/">
         Home
       </NavLink>
+
       <NavLink to="/todo-list">Todos</NavLink>
       <NavLink to="/blog/">blog</NavLink>
       <NavLink to="/guest/">guest</NavLink>
