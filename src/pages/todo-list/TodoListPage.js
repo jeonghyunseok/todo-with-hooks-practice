@@ -2,12 +2,17 @@ import React, {useState, useRef, useEffect} from 'react';
 import styled from 'styled-components';
 import TodoList from './components/TodoList';
 import CreateTodo from './components/CreacteTodo';
+import TodoListFooter from './components/TodoListFooter';
 
 const Page = styled.div`
   min-height: 80vh;
   padding: 50px;
   .CreateTodo {
     margin-bottom: 20px;
+  }
+
+  .TodoListFooter {
+    margin-top: 20px;
   }
 `;
 
@@ -80,9 +85,12 @@ function TodoListPage(props) {
         items={items}
         onDelete={handleDeleteItem}
         onEdit={handleEditItem}
+        onChangeComplete={handleChangeComplete}
+      />
+      <TodoListFooter
+        items={items}
         onSelectAll={handleSelectAll}
         onUnselectAll={handleUnselectAll}
-        onChangeComplete={handleChangeComplete}
       />
     </Page>
   );
